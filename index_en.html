@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skisurf.pl | Rental & Service Szelment</title>
+    <!-- Same CSS links as PL version -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Paste the same CSS here from the previous file */
+        :root { --primary-color: #0056b3; --accent-color: #00c6ff; --text-dark: #333; --bg-light: #f9f9f9; --cta-color: #ff5722; --border-color: #ddd; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; scroll-behavior: smooth; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-color); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+        .navbar { background-color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .nav-cta { background-color: var(--primary-color); color: white !important; padding: 5px 12px; border-radius: 5px; }
+        .fb-icon { color: #1877F2 !important; font-size: 1.2rem; }
+        .lang-switch { border-left: 1px solid #ccc; padding-left: 15px; margin-left: 10px; display: flex; gap: 10px; }
+        .lang-switch a { font-weight: bold; font-size: 0.8rem; }
+        .lang-active { color: var(--cta-color) !important; text-decoration: underline; }
+        .hero { background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/hero.jpg'); background-size: cover; background-position: center; height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
+        .hero-content h1 { font-size: 3rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 10px; }
+        .hero-content p { font-size: 1.4rem; margin-bottom: 30px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); font-weight: 600; }
+        .btn-main { display: inline-block; background-color: var(--cta-color); color: white; padding: 15px 40px; font-weight: bold; border-radius: 30px; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.5); transition: transform 0.3s; }
+        .btn-main:hover { transform: scale(1.05); background-color: #e64a19; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2::after { content: ''; display: block; width: 70px; height: 3px; background: var(--cta-color); margin: 15px auto 0; }
+        .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .location-images { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .location-images img { width: 100%; height: 250px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .img-full { grid-column: span 2; height: 300px !important; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 25px; text-align: center; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .gallery-item { height: 250px; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .gallery-item img { width: 100%; height: 100%; transition: transform 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .table-wrapper { overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
+        th { background-color: var(--primary-color); color: white; }
+        .price-highlight { font-weight: bold; color: var(--cta-color); }
+        .regulations-box { background: white; padding: 30px; border-radius: 8px; border: 1px solid #ddd; max-height: 300px; overflow-y: auto; }
+        .contact-bar { background-color: #222; color: white; text-align: center; padding: 60px 20px; }
+        .phone-big { font-size: 2.5rem; color: var(--cta-color); font-weight: bold; margin: 20px 0; display: block; }
+        footer { background-color: #111; color: #777; text-align: center; padding: 20px; font-size: 0.9rem; }
+        @media (max-width: 768px) { .location-grid { grid-template-columns: 1fr; } .location-images { grid-template-columns: 1fr; } .img-full { grid-column: span 1; } .nav-links { display: none; } .navbar { justify-content: center; } .hero-content h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Skisurf.pl</a>
+        <div class="nav-links">
+            <a href="#o-nas">About Us</a>
+            <a href="#oferta">Offer</a>
+            <a href="#galeria">Gallery</a>
+            <a href="#cennik">Pricing</a>
+            <a href="#kontakt" class="nav-cta">Contact</a>
+            <!-- Social & Lang -->
+            <a href="https://www.facebook.com/skisurf.szelment/" target="_blank" class="fb-icon"><i class="fab fa-facebook"></i></a>
+            <div class="lang-switch">
+                <a href="index.html">PL</a>
+                <a href="index_en.html" class="lang-active">EN</a>
+                <a href="index_lt.html">LT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Winter at Szelment</h1>
+            <p>Private Rental & Service Skisurf.pl</p>
+            <a href="tel:508497629" class="btn-main">Book now: 508 497 629</a>
+        </div>
+    </header>
+
+    <!-- LOCATION -->
+    <section id="o-nas" class="container">
+        <div class="section-header">
+            <h2>Location & About Us</h2>
+        </div>
+        <div class="location-grid">
+            <div class="location-text">
+                <h3><i class="fas fa-map-marker-alt"></i> Right next to WOSiR Szelment slopes</h3>
+                <p>Our rental shop is located in the distinct yellow building, directly next to the ski resort. This allows you to rent equipment and hit the slopes immediately.</p>
+                <p style="margin-top: 15px;">We operate as <strong>Skisurf.pl</strong>. We offer professional advice, friendly service, and equipment that makes skiing a pure pleasure.</p>
+            </div>
+            <div class="location-images">
+                <img src="images/budynek.png" alt="Skisurf Building" class="img-full">
+                <img src="images/stok.jpg" alt="Szelment Ski Slope">
+                <img src="images/wnetrze.png" alt="Rental Interior">
+            </div>
+        </div>
+    </section>
+
+    <!-- OFFER -->
+    <section id="oferta" class="container" style="background-color: #fff;">
+        <div class="section-header">
+            <h2>Our Equipment</h2>
+            <p>Brands: VOLKL, ATOMIC, FISCHER, HEAD, BURTON</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="images/narty.png" alt="Volkl Skis">
+                <div class="card-content">
+                    <h3>Downhill Skis</h3>
+                    <p>We have 500 sets of skis with lengths from 67 to 178 cm. Wide selection of Volkl and Fischer models.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="images/deski.jpg" alt="Burton Boards">
+                <div class="card-content">
+                    <h3>Snowboard</h3>
+                    <p>For snowboard fans, we offer Burton equipment. Boards available from 100 to 165 cm.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="images/buty-suszarka.jpg" alt="Boot Dryer">
+                <div class="card-content">
+                    <h3>Hygiene & Comfort</h3>
+                    <p>Our boots are professionally dried and disinfected after every use. Comfort guaranteed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="galeria" class="container">
+        <div class="section-header">
+            <h2>Gallery</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="images/buty-detal.jpg" alt="Burton Boots"></div>
+            <div class="gallery-item"><img src="images/wnetrze.png" alt="Equipment Racks"></div>
+            <div class="gallery-item"><img src="images/narty.png" alt="Ski Service"></div>
+            <div class="gallery-item"><img src="images/buty2.png" alt="Boots"></div>
+            <div class="gallery-item"><img src="images/buty3.png" alt="Boots"></div>
+            <div class="gallery-item"><img src="images/narty2.png" alt="Skis"></div>
+            <div class="gallery-item"><img src="images/narty3.png" alt="Skis"></div>
+            <div class="gallery-item"><img src="images/but1.png" alt="Boots"></div>
+        </div>
+    </section>
+
+    
+<!-- PRICE LIST -->
+<section id="price-list" class="container" style="background-color: #f4f7f6;">
+    <div class="section-header">
+        <h2>Price List</h2>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Equipment Set</th>
+                    <th>1h</th>
+                    <th>2h</th>
+                    <th>3h</th>
+                    <th>4h</th>
+                    <th>Full Day</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ski Set</td>
+                    <td>30 PLN</td>
+                    <td>40 PLN</td>
+                    <td>45 PLN</td>
+                    <td>50 PLN</td>
+                    <td class="price-highlight">60 PLN</td>
+                </tr>
+                <tr>
+                    <td>Snowboard Set</td>
+                    <td>30 PLN</td>
+                    <td>40 PLN</td>
+                    <td>45 PLN</td>
+                    <td>50 PLN</td>
+                    <td class="price-highlight">60 PLN</td>
+                </tr>
+                <tr>
+                    <td>VIP Skis</td>
+                    <td>40 PLN</td>
+                    <td>50 PLN</td>
+                    <td>60 PLN</td>
+                    <td>70 PLN</td>
+                    <td class="price-highlight">90 PLN</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>1h</th>
+                    <th>2h</th>
+                    <th>3h</th>
+                    <th>4h</th>
+                    <th>Full Day</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Skis</td>
+                    <td>25 PLN</td>
+                    <td>30 PLN</td>
+                    <td>35 PLN</td>
+                    <td>40 PLN</td>
+                    <td>50 PLN</td>
+                </tr>
+                <tr>
+                    <td>Snowboard</td>
+                    <td>25 PLN</td>
+                    <td>30 PLN</td>
+                    <td>35 PLN</td>
+                    <td>40 PLN</td>
+                    <td>50 PLN</td>
+                </tr>
+                <tr>
+                    <td>Boots</td>
+                    <td>25 PLN</td>
+                    <td>30 PLN</td>
+                    <td>35 PLN</td>
+                    <td>40 PLN</td>
+                    <td>50 PLN</td>
+                </tr>
+                <tr>
+                    <td>Poles</td>
+                    <td>5 PLN</td>
+                    <td>10 PLN</td>
+                    <td>15 PLN</td>
+                    <td>15 PLN</td>
+                    <td>20 PLN</td>
+                </tr>
+                <tr>
+                    <td>Goggles/Gloves</td>
+                    <td>5 PLN</td>
+                    <td>10 PLN</td>
+                    <td>15 PLN</td>
+                    <td>20 PLN</td>
+                    <td>20 PLN</td>
+                </tr>
+                <tr>
+                    <td>Helmet</td>
+                    <td>5 PLN</td>
+                    <td>8 PLN</td>
+                    <td>10 PLN</td>
+                    <td>12 PLN</td>
+                    <td>15 PLN</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header" style="margin-top: 50px;">
+        <h2>Service</h2>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Service</th>
+                    <th style="width: 150px;">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left;">Full ski restoration (filling gaps, leveling base, sharpening and hot waxing)</td>
+                    <td class="price-highlight">100 PLN</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Hot waxing skis — with iron</td>
+                    <td>40 PLN</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Sharpening ski side edges</td>
+                    <td>40 PLN</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Full snowboard restoration (filling gaps, leveling base, sharpening and hot waxing)</td>
+                    <td class="price-highlight">100 PLN</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Sharpening snowboard side edges</td>
+                    <td>40 PLN</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Snowboard waxing</td>
+                    <td>40 PLN</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+    
+	
+<!-- TERMS AND CONDITIONS -->
+<section class="container">
+    <div class="section-header">
+        <h2>Terms and Conditions</h2>
+    </div>
+    <div class="regulations-box">
+        <ol style="padding-left: 20px;">
+            SPORTS equipment subject to rental is the property of Skisurf rental.
+            Before renting the equipment, the customer is obliged to read these terms and conditions.
+            <li>By renting the equipment, the Customer enters into a civil law agreement with Skisurf rental (Krzysztof Zdancewicz) in accordance with the conditions set out in these terms and conditions.</li>
+            <li>The rental company provides the Customer with specially prepared sports equipment and makes every effort to meet the Customer's expectations in this regard.</li>
+            <li>The Customer is financially responsible for damage caused by improper use of the equipment.</li>
+            <li>The Customer declares that they have the necessary knowledge about the operation of the equipment and undertakes to take care of it and use it safely and as intended (the customer uses the equipment only on the slope). The Customer uses the equipment at their own risk.</li>
+            <li>The Customer is not responsible for normal wear and tear of the equipment when used as intended.</li>
+            <li>The Customer is responsible for excessive wear and tear of the equipment (e.g., riding on a parking lot or asphalt road) – in places not intended for skiing or snowboarding, which may damage the base and edges of skis, causing servicing costs and loss of value. The amount of damage is determined by the rental company based on the cost of repair or missing parts. If the equipment is returned damaged or incomplete, the Customer authorizes the rental company to retain the deposit in proportion to the damage or missing parts. A Customer who did not pay a deposit agrees to settle the amount determined by the rental company no later than at the time of returning the equipment.</li>
+            <li>Lending the equipment to a third party is at the Customer's own responsibility.</li>
+            <li>If the equipment is returned after the agreed return time, the rental company charges a fee according to the price list. Rental fees are calculated from the date and time of rental to the date and time of return or payment for lost equipment.</li>
+            <li>The Customer should check the technical condition and completeness of the equipment upon collection.</li>
+            <li>By renting equipment from the rental company, the Customer confirms that they received equipment free of defects, according to the specification, and in good technical condition.</li>
+            <li>The Customer is responsible for the loss of equipment. In case of loss or other circumstances preventing return on time, the Customer must immediately inform the rental company. If the equipment is not returned on time, a Customer who paid a deposit authorizes the rental company to retain the full deposit upon expiry of the return deadline. A Customer who did not pay a deposit must reimburse the rental company for the value of the equipment no later than upon expiry of the return deadline.</li>
+            <li>If the Customer does not return the equipment on time and does not inform about extending the rental, the case will be reported as misappropriation to the appropriate law enforcement authorities.</li>
+            <li>The rental company has the right to process personal data for the purpose of fulfilling the rental agreement. This right is based on Article 23(1)(3) of the Act of 29 August 1997 on the Protection of Personal Data (Journal of Laws 2002 No. 101, item 926).</li>
+            <li>The competent court for resolving disputes is the court in Suwałki.</li>
+            <li>Failure to read the rental terms and conditions does not exempt the Customer from complying with them.</li>
+        </ol>
+        <br>
+        <b>Method of calculating hours</b>
+        From the moment the equipment is issued
+        <br>
+        <ol style="padding-left: 20px;">
+            <li>0 – 70 min (up to 1h 10min) counted as 1 hour.</li>
+            <li>71 – 130 min (up to 2h 10min) counted as 2 hours.</li>
+            <li>131 – 190 min (up to 3h 10min) counted as 3 hours.</li>
+            <li>191 – 250 min (up to 4h 10min) counted as 4 hours.</li>
+            <li>251 min (4h 11min) and more on the same day counted as a full day.</li>
+            <li>A day is considered from opening time to closing time on the same day – i.e., from 09:00 to 21:00 on the same day.</li>
+        </ol>
+    </div>
+    <br>
+    <br>
+</section>
+    <!-- CONTACT -->
+    <section id="kontakt" class="contact-bar">
+        <h2>Book your equipment today!</h2>
+        <a href="tel:508497629" class="phone-big"><i class="fas fa-phone-alt"></i> 508 497 629</a>
+        <p>Location: Szelment (next to WOSiR)</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Skisurf.pl - Szelment.</p>
+    </footer>
+
+</body>
+</html>

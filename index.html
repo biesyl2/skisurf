@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skisurf.pl | Wypożyczalnia i Serwis Szelment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ZMIENNE I RESET --- */
+        :root {
+            --primary-color: #0056b3;
+            --accent-color: #00c6ff;
+            --text-dark: #333;
+            --bg-light: #f9f9f9;
+            --cta-color: #ff5722;
+            --border-color: #ddd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-color); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+
+        /* --- NAWIGACJA --- */
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .nav-cta { background-color: var(--primary-color); color: white !important; padding: 5px 12px; border-radius: 5px; }
+        
+        /* Styl dla Facebooka i Języków */
+        .fb-icon { color: #1877F2 !important; font-size: 1.2rem; }
+        .lang-switch { border-left: 1px solid #ccc; padding-left: 15px; margin-left: 10px; display: flex; gap: 10px; }
+        .lang-switch a { font-weight: bold; font-size: 0.8rem; }
+        .lang-active { color: var(--cta-color) !important; text-decoration: underline; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 { font-size: 3rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 10px; }
+        .hero-content p { font-size: 1.4rem; margin-bottom: 30px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); font-weight: 600; }
+
+        .btn-main {
+            display: inline-block;
+            background-color: var(--cta-color);
+            color: white;
+            padding: 15px 40px;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.5);
+            transition: transform 0.3s;
+        }
+        .btn-main:hover { transform: scale(1.05); background-color: #e64a19; }
+
+        /* --- CONTANER --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2::after { content: ''; display: block; width: 70px; height: 3px; background: var(--cta-color); margin: 15px auto 0; }
+
+        /* --- LOKALIZACJA --- */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .location-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .location-images img {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .img-full { grid-column: span 2; height: 300px !important; }
+
+        /* --- OFERTA --- */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 25px; text-align: center; }
+
+        /* --- GALERIA --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        /* --- CENNIK --- */
+        .table-wrapper { overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #eee; }
+        th { background-color: var(--primary-color); color: white; }
+        .price-highlight { font-weight: bold; color: var(--cta-color); }
+        
+        .regulations-box { background: white; padding: 30px; border-radius: 8px; border: 1px solid #ddd; max-height: 300px; overflow-y: auto; }
+
+        /* --- KONTAKT --- */
+        .contact-bar { background-color: #222; color: white; text-align: center; padding: 60px 20px; }
+        .phone-big { font-size: 2.5rem; color: var(--cta-color); font-weight: bold; margin: 20px 0; display: block; }
+
+        footer { background-color: #111; color: #777; text-align: center; padding: 20px; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .location-grid { grid-template-columns: 1fr; }
+            .location-images { grid-template-columns: 1fr; }
+            .img-full { grid-column: span 1; }
+            .nav-links { display: none; }
+            .navbar { justify-content: center; }
+            .hero-content h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">Skisurf.pl</a>
+        <div class="nav-links">
+            <a href="#o-nas">O nas</a>
+            <a href="#oferta">Oferta</a>
+            <a href="#galeria">Galeria</a>
+            <a href="#cennik">Cennik</a>
+            <a href="#kontakt" class="nav-cta">Kontakt</a>
+            <!-- Social & Lang -->
+            <a href="https://www.facebook.com/skisurf.szelment/" target="_blank" class="fb-icon"><i class="fab fa-facebook"></i></a>
+            <div class="lang-switch">
+                <a href="index.html" class="lang-active">PL</a>
+                <a href="index_en.html">EN</a>
+                <a href="index_lt.html">LT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Zima na Szelmencie</h1>
+            <p>Prywatna Wypożyczalnia i Serwis Skisurf.pl</p>
+            <a href="tel:508497629" class="btn-main">Umów się: 508 497 629</a>
+        </div>
+    </header>
+
+    <!-- LOKALIZACJA -->
+    <section id="o-nas" class="container">
+        <div class="section-header">
+            <h2>Lokalizacja i O nas</h2>
+        </div>
+        <div class="location-grid">
+            <div class="location-text">
+                <h3><i class="fas fa-map-marker-alt"></i> Tuż przy stoku WOSiR Szelment</h3>
+                <p>Nasza wypożyczalnia znajduje się w charakterystycznym żółtym budynku, bezpośrednio przy ośrodku narciarskim. Dzięki temu możesz wypożyczyć sprzęt i od razu ruszyć na wyciąg.</p>
+                <p style="margin-top: 15px;">Działamy pod nazwą <strong>Skisurf.pl</strong>. Oferujemy profesjonalne doradztwo, miłą obsługę i sprzęt, który sprawi, że jazda będzie czystą przyjemnością.</p>
+            </div>
+            <div class="location-images">
+                <img src="images/budynek.png" alt="Wypożyczalnia Skisurf Budynek" class="img-full">
+                <img src="images/stok.jpg" alt="Widok na stok Szelment">
+                <img src="images/wnetrze.png" alt="Wnętrze wypożyczalni">
+            </div>
+        </div>
+    </section>
+
+    <!-- OFERTA -->
+    <section id="oferta" class="container" style="background-color: #fff;">
+        <div class="section-header">
+            <h2>Nasz Sprzęt</h2>
+            <p>Marki: VOLKL, ATOMIC, FISCHER, HEAD, BURTON</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="images/narty.png" alt="Narty Volkl">
+                <div class="card-content">
+                    <h3>Narty Zjazdowe</h3>
+                    <p>Posiadamy 500 kompletów nart o długościach od 67 do 178 cm. Szeroki wybór modeli Volkl i Fischer.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="images/deski.jpg" alt="Deski Burton">
+                <div class="card-content">
+                    <h3>Snowboard</h3>
+                    <p>Dla fanów jednej deski oferujemy sprzęt marki Burton. Dostępne deski od 100 do 165 cm.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <img src="images/buty-suszarka.jpg" alt="Suszarka do butów narciarskich">
+                <div class="card-content">
+                    <h3>Higiena i Komfort</h3>
+                    <p>Nasze buty są profesjonalnie suszone i dezynfekowane po każdym użyciu. Komfort gwarantowany.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria" class="container">
+        <div class="section-header">
+            <h2>Galeria Wypożyczalni</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="images/buty-detal.jpg" alt="Buty snowboardowe Burton"></div>
+            <div class="gallery-item"><img src="images/wnetrze.png" alt="Regały ze sprzętem"></div>
+            <div class="gallery-item"><img src="images/narty.png" alt="Serwis nart"></div>
+            <div class="gallery-item"><img src="images/buty2.png" alt="Buty"></div>
+            <div class="gallery-item"><img src="images/buty3.png" alt="Buty"></div>
+            <div class="gallery-item"><img src="images/narty2.png" alt="Narty"></div>
+            <div class="gallery-item"><img src="images/narty3.png" alt="Narty"></div>
+            <div class="gallery-item"><img src="images/but1.png" alt="Buty"></div>
+        </div>
+    </section>
+
+<!-- CENNIK -->
+<section id="cennik" class="container" style="background-color: #f4f7f6;">
+    <div class="section-header">
+        <h2>Cennik</h2>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Komplet Sprzętu</th>
+                    <th>1h</th>
+                    <th>2h</th>
+                    <th>3h</th>
+                    <th>4h</th>
+                    <th>Cały dzień</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Komplet Narciarski</td>
+                    <td>30 zł</td>
+                    <td>40 zł</td>
+                    <td>45 zł</td>
+					<td>50 zł</td>
+                    <td class="price-highlight">60 zł</td>
+                </tr>
+                <tr>
+                    <td>Komplet Snowboard</td>
+                    <td>30 zł</td>
+                    <td>40 zł</td>
+                    <td>45 zł</td>
+					<td>50 zł</td>
+                    <td class="price-highlight">60 zł</td>
+                </tr>
+                <tr>
+                    <td>Narty VIP</td>
+                    <td>40 zł</td>
+                    <td>50 zł</td>
+                    <td>60 zł</td>
+					<td>70 zł</td>
+                    <td class="price-highlight">90 zł</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sprzęt</th>
+                    <th>1h</th>
+                    <th>2h</th>
+                    <th>3h</th>
+                    <th>4h</th>
+                    <th>Cały dzień</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Narty</td>
+                    <td>25 zł</td>
+                    <td>30 zł</td>
+                    <td>35 zł</td>
+                    <td>40 zł</td>
+                    <td>50 zł</td>
+                </tr>
+                <tr>
+                    <td>Snowboard</td>
+                    <td>25 zł</td>
+                    <td>30 zł</td>
+                    <td>35 zł</td>
+                    <td>40 zł</td>
+                    <td>50 zł</td>
+                </tr>
+                <tr>
+                    <td>Buty</td>
+                    <td>25 zł</td>
+                    <td>30 zł</td>
+                    <td>35 zł</td>
+                    <td>40 zł</td>
+                    <td>50 zł</td>
+                </tr>
+                <tr>
+                    <td>Kijki</td>
+                    <td>5 zł</td>
+                    <td>10 zł</td>
+                    <td>15 zł</td>
+                    <td>15 zł</td>
+                    <td>20 zł</td>
+               </tr>
+                <tr>
+                    <td>Gogle/rękawice</td>
+                    <td>5 zł</td>
+                    <td>10 zł</td>
+                    <td>15 zł</td>
+                    <td>20 zł</td>
+                    <td>20 zł</td>
+                </tr>
+                <tr>
+                    <td>kask</td>
+                    <td>5 zł</td>
+                    <td>8 zł</td>
+                    <td>10 zł</td>
+                    <td>12 zł</td>
+                    <td>15 zł</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    
+    <div class="section-header" style="margin-top: 50px;">
+        <h2>Serwis</h2>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Usługa</th>
+                    <th style="width: 150px;">Cena</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left;">Pełna regeneracja nart (zalewanie ubytków, wyrównywanie ślizgów, ostrzenie i smarowanie na gorąco)</td>
+                    <td class="price-highlight">100 zł</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Smarowanie nart na gorąco—żelazkiem</td>
+                    <td>40 zł</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Ostrzenie krawędzi bocznych nart</td>
+                    <td>40 zł</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Pełna regeneracja snowboardu (zalewanie ubytków, wyrównanie ślizgu, ostrzenie i smarowanie na gorąco )</td>
+                    <td class="price-highlight">100 zł</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Ostrzenie krawędzi bocznych snowboardu</td>
+                    <td>40 zł</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">Smarowanie snowboardu</td>
+                    <td>40 zł</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- REGULAMIN -->
+<section class="container">
+    <div class="section-header">
+        <h2>Regulamin </h2>
+    </div>
+    <div class="regulations-box">
+        <ol style="padding-left: 20px;">
+			SPRZĘT sportowy będący przedmiotem wypożyczenia jest własnością wypożyczalni skisurf.
+			Przed wypożyczeniem sprzętu, klient ma obowiązek zapoznania się z treścią niniejszego regulaminu.
+			<li>Wraz z wypożyczeniem sprzętu, Klient zawiera z wypożyczalnią skisurf Krzysztof Zdancewicz  umowę cywilnoprawną zgodnie z warunkami określonymi w niniejszym regulaminie.</li>
+			<li>Wypożyczalnia oddaje do dyspozycji Klienta, specjalnie przygotowany sprzęt sportowy oraz dokłada wszelkich starań, by spełnić oczekiwania Klienta w tym zakresie.</li>
+			<li>Klient odpowiada finansowo za uszkodzenia spowodowane nieprawidłowym użytkowaniem sprzętu.</li>
+			<li>Klient oświadcza, że posiada niezbędną wiedzę na temat eksploatacji sprzętu i zobowiązuje się do dbałości o sprzęt i wykorzystywania go bezpiecznie i zgodnie z  przeznaczeniem (klient użytkuje sprzęt tylko wyłącznie na stoku). Klient wykorzystuje sprzęt na swoją odpowiedzialność.</li>
+			<li>Klient nie ponosi odpowiedzialności za normalne zużycie sprzętu zgodnie z jego przeznaczeniem.</li>
+			<li>Klient ponosi odpowiedzialność za ponad normalne zużycie sprzętu, (np. w wyniku jeżdżenia po parkingu, drodze asfaltowej) - w miejscach nie przeznaczonych do jazdy na nartach czy snowboardzie w wyniku czego zniszczy ślizg jak i krawędzie narty, co naraża wypożyczalnię na koszty serwisowania i utraty wartości (narty czy snowboardu) spowodowane zmniejszeniem krawędzi bocznej i ślizgu narty. Wysokość szkody ustala wypożyczalnia w oparciu o wartość braków lub cenę naprawy. W przypadku zwrócenia sprzętu uszkodzonego lub niekompletnego Klient upoważnia wypożyczalnię do zatrzymania kaucji w części stosownej do uszkodzenia lub braku. Klient, który nie wpłacał kaucji, w przypadku zwrotu sprzętu uszkodzonego lub niekompletnego zobowiązuje się uregulować ustaloną przez wypożyczalnię kwotę najpóźniej w terminie zwrotu sprzętu.</li>
+			<li>Użyczenie sprzętu osobie trzeciej odbywa się na odpowiedzialność Klienta.</li>
+			<li>W przypadku zwrotu sprzętu po ustalonym terminie zwrotu wypożyczalnia nalicza opłatę w wysokości ustalonej w cenniku. Opłaty za wypożyczenie nalicza się od dnia i godziny wypożyczenia do dnia i godziny zwrotu sprzętu lub do dnia wpłacenia należności za utracony sprzęt.</li>
+			<li>Klient odbierając sprzęt powinien sprawdzić stan techniczny i kompletność sprzętu.</li>
+			<li>Klient wypożyczając sprzęt z  wypożyczalni, potwierdza, że   otrzymał sprzęt pozbawiony wad, zgodnie ze specyfikacją i w dobrym stanie technicznym.</li>
+			<li>Klient ponosi odpowiedzialność za zaginięcie sprzętu. W przypadku zaginięcia sprzętu lub innych okoliczności uniemożliwiających zwrot sprzętu w ustalonym terminie Klient ma obowiązek niezwłocznego poinformowania wypożyczalni. W przypadku niezwrócenia sprzętu w ustalonym terminie Klient, który wpłacił kaucję upoważnia wypożyczalnię do zatrzymania kaucji w całości z chwilą upływu terminu zwrotu. Klient, który nie wpłacał kaucji zobowiązany jest zwrócić wypożyczalni wartość sprzętu najpóźniej w chwili upływu terminu zwrotu.</li>
+			<li>W przypadku, kiedy klient nie zwróci sprzętu w umówionym terminie i nie poinformuje o decyzji przedłużenia na kolejny dzień, sprawa zostaje zgłoszona jako przywłaszczenie do właściwych organów ścigania.</li>
+			<li>Wypożyczalnia ma prawo do przetwarzania danych osobowych w celu realizacji umowy wypożyczenia sprzętu. Powyższe prawo oparte jest na art. 23 ust. 1 pkt. 3 ustawy z dnia 29 sierpnia 1997 roku o ochronie danych osobowych (Dz.U. 2002 nr 101 poz. 926).</li>
+			<li>Sądem właściwym dla rozstrzygania sporów jest sąd w Suwałkach.</li>
+			<li>Nie przeczytanie regulaminu wypożyczalni nie zwalnia klienta z przestrzegania regulaminu.</li>
+		</ol>
+		<br>
+		<b>Sposób naliczania godzin</b>
+			Od momentu wydania sprzętu
+		<br>
+		<ol style="padding-left: 20px;">
+			<li> 0 – 70min (do 1h 10min) liczona jako 1 godz. </li>
+			<li>71 – 130 min ( do 2h 10min) liczone jako 2 godz. </li>
+			<li>131 – 190 min ( do 3h 10min) liczone jako 3 godz.</li>
+			<li>191– 250 min ( do 4h 10 min ) liczymy jako 4 godz.</li>
+			<li>251 min ( 4h 11min ) i więcej tego samego dnia liczymy jako cały dzień</li>
+			<li>Za dzień uważamy - od godz. otwarcia do godz. zamknięcia tego samego dnia – czyli od 900 do 2100 tego samego dnia</li>
+      </ol>
+    </div>
+	<br>
+	<br>
+		
+    <!-- KONTAKT -->
+    <section id="kontakt" class="contact-bar">
+        <h2>Zarezerwuj sprzęt już dziś!</h2>
+        <a href="tel:508497629" class="phone-big"><i class="fas fa-phone-alt"></i> 508 497 629</a>
+        <p>Lokalizacja: Szelment (przy WOSiR)</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Skisurf.pl - Szelment.</p>
+    </footer>
+
+</body>
+</html>
